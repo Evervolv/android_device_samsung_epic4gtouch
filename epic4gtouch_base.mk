@@ -67,7 +67,6 @@ PRODUCT_PACKAGES := \
     TvOut \
     TvOutHack \
     camera.exynos4 \
-    GalaxyS2Settings \
     SamsungServiceMode
 
 # Camera
