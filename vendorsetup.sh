@@ -14,5 +14,4 @@
 # limitations under the License.
 #
 
-add_lunch_combo full_epic4gtouch-eng
-add_lunch_combo cm_epic4gtouch-userdebug
+#add_lunch_combo full_epic4gtouch-eng
