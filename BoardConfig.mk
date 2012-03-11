@@ -65,6 +65,7 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/epic4gtouch/releas
 # Graphics
 BOARD_EGL_CFG := device/samsung/epic4gtouch/configs/egl.cfg
 USE_OPENGL_RENDERER := true
+BOARD_HAS_SCREEN_OFF_FLICKER := true
 
 # HWComposer
 BOARD_USES_HWCOMPOSER := true
