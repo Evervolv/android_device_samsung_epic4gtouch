@@ -4,6 +4,9 @@ $(call inherit-product, device/samsung/epic4gtouch/full_epic4gtouch.mk)
 # Inherit some common evervolv stuff.
 $(call inherit-product, vendor/ev/config/common_full_phone.mk)
 
+# Inherit wimax stuff.
+$(call inherit-product, vendor/ev/config/wimax.mk)
+
 #
 # Setup device specific product configuration.
 #
@@ -27,7 +30,7 @@ PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank yo
 PRODUCT_COPY_FILES +=  \
     vendor/ev/prebuilt/wvga/media/bootanimation.zip:system/media/bootanimation.zip
 
-# qHD overlay
+# wvga overlay
 PRODUCT_PACKAGE_OVERLAYS += \
     vendor/ev/overlay/wvga
 
