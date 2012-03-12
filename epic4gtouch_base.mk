@@ -18,7 +18,7 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/epic4gtouch/overlay
 # This device is hdpi.
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
-PRODUCT_LOCALES += hdpi
+PRODUCT_LOCALES += en
 
 # Init files
 PRODUCT_COPY_FILES := \
@@ -159,8 +159,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set default USB interface
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc \
-	persist.sys.usb.config=mass_storage,adb 
+	ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
 
 $(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
 
