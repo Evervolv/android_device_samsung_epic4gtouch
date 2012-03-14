@@ -306,4 +306,6 @@
          strength even on EVDO -->
     <bool name="config_alwaysUseCdmaRssi">true</bool>
 
+    <bool name="config_smsSamsungCdmaAlternateMessageIDEncoding">true</bool>
+
 </resources>
