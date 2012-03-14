@@ -61,17 +61,47 @@ def WriteFullOTAPackage(input_zip, output_zip):
   AppendAssertions(script, input_zip)
   device_specific.FullOTA_Assertions()
 
+# MOTD during flash added for Evervolv by cocide
+  if (OPTIONS.motd != None):
+    eachRawMotd = OPTIONS.motd.split("\\n")
+    for eachMotd in eachRawMotd:
+      rawMotd = eachMotd.split()
+      sizedMotd = []
+      for word in rawMotd:
+        sizedMotd += [word[i:i+OPTIONS.motdLim] for i in range(0, len(word), OPTIONS.motdLim)]
+      sizedMotd.reverse()
+      if len(sizedMotd):
+        motdLine = [sizedMotd.pop()]
+      else:
+        motdLine = [""]
+      sizedMotd.reverse()
+      for word in sizedMotd:
+        if ( (motdLine[len(motdLine)-1].__len__() + word.__len__()) < 48):
+          motdLine[len(motdLine)-1] = motdLine[len(motdLine)-1] + " " + word
+        else:
+          motdLine.append(word)
+      for line in motdLine:
+        script.Print(line)
+
   script.ShowProgress(0.5, 0)
 
   if OPTIONS.wipe_user_data:
+# Comments during install added for Evervolv by cocide
+    script.Print("Wiping user data")
     script.FormatPartition("/data")
 
+# Comments during install added for Evervolv by cocide
+  script.Print("Formatting system")
   script.Unmount("/system")
   script.FormatPartition("/system")
   script.Mount("/system")
-  script.UnpackPackageDir("recovery", "/system")
+  #script.UnpackPackageDir("recovery", "/system")
+# Comments during install added for Evervolv by cocide
+  script.Print("Installing Evervolv")
   script.UnpackPackageDir("system", "/system")
 
+# Comments during install added for Evervolv by cocide
+  script.Print("Creating symlinks")
   (symlinks, retouch_files) = CopySystemFiles(input_zip, output_zip)
   script.MakeSymlinks(symlinks)
   if OPTIONS.aslr_mode:
@@ -82,6 +112,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
   CopyBootFiles(input_zip, output_zip)
 
   Item.GetMetadata(input_zip)
+# Comments during install added for Evervolv by cocide
+  script.Print("Setting permissions")
   Item.Get("system").SetPermissions(script)
 
   script.ShowProgress(0.2, 0)
