@@ -14,7 +14,9 @@
     <int name="mMaxTextViewSize">5000</int>
     <string name="uaProfUrl">http://device.sprintpcs.com/Samsung/</string>
     <int name="recipientLimit">10</int>
-    <int name="smsToMmsTextThreshold">7</int>
+    <bool name="enableMultipartSMS">false</bool>
+    <int name="smsToMmsTextThreshold">4</int>
+    <bool name="enableSplitSMS">true</bool>
     <string name="emailGatewayNumber">6245</string>
     <string name="USAATTUserAgent">%s Mozilla/5.0 SMM-MMS/1.2.0</string>
     <string name="USATMOUserAgent">Mozilla/5.0 (Linux; U; Android %s) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1</string>
