@@ -30,6 +30,15 @@
     <!-- Default LED off time for notification LED in milliseconds. -->
     <integer name="config_defaultNotificationLedOff">9000</integer>
 
+    <!-- Default value for led color when battery is low on charge -->
+    <integer name="config_notificationsBatteryLowARGB">0xFFFF00FF</integer>
+
+    <!-- Default value for led color when battery is medium charged -->
+    <integer name="config_notificationsBatteryMediumARGB">0xFFFF0000</integer>
+
+    <!-- Default value for led color when battery is fully charged -->
+    <integer name="config_notificationsBatteryFullARGB">0xFF0000FF</integer>
+
     <!-- Our amoled doesn't animate well. -->
     <bool name="config_animateScreenLights">false</bool>
 
@@ -84,60 +93,33 @@
         <item>250</item>
     </integer-array>
 
+    <!-- Flag indicating whether we should enable automatic brightness for
+         the button and keyboard backlights. -->
+    <bool name="config_autoBrightnessButtonKeyboard">false</bool>
+
     <!-- Array of output values for button backlight corresponding to the LUX values
          in the config_autoBrightnessLevels array.  This array should have size one greater
          than the size of the config_autoBrightnessLevels array.
-    -->
+         This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessButtonBacklightValues">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
     </integer-array>
 
     <!-- Array of output values for keyboard backlight corresponding to the LUX values
          in the config_autoBrightnessLevels array.  This array should have size one greater
          than the size of the config_autoBrightnessLevels array.
-         Crespo has no keyboard so all values are zero.
-    -->
+         This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessKeyboardBacklightValues">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-    </integer-array>
-
-
-    <!-- Minimum screen brightness allowed by the power manager. -->
-    <integer name="config_screenBrightnessDim">10</integer>
-    
-    <!-- Default LED on time for notification LED in milliseconds. -->
-    <integer name="config_defaultNotificationLedOn">1000</integer>
-
-    <!-- Default LED off time for notification LED in milliseconds. -->
-    <integer name="config_defaultNotificationLedOff">14000</integer>
-
-    <!-- Default value for led color when battery is low on charge -->
-    <integer name="config_notificationsBatteryLowARGB">0xFFFF00FF</integer>
-
-    <!-- Default value for led color when battery is medium charged -->
-    <integer name="config_notificationsBatteryMediumARGB">0xFFFF0000</integer>
-
-    <!-- Default value for led color when battery is fully charged -->
-    <integer name="config_notificationsBatteryFullARGB">0xFF0000FF</integer>
-
-    <!-- Default value for LED on time when the battery is low on charge in miliseconds -->
-    <integer name="config_notificationsBatteryLedOn">500</integer>
-
-    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveBatteryLed">true</bool>
-
-    <!-- Default value for LED off time when the battery is low on charge in miliseconds -->
-    <integer name="config_notificationsBatteryLedOff">14500</integer>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+    </integer-array>  
 
     <!-- Minimum screen brightness allowed by the power manager. -->
     <integer name="config_screenBrightnessDim">10</integer>
@@ -152,13 +134,13 @@
          does not require auto-restore. -->
     <!-- the 6th element indicates boot-time dependency-met value. -->
     <string-array translatable="false" name="networkAttributes">
-	<item>"wimax,6,6,1,60000,true"</item>
         <item>"wifi,1,1,1,-1,true"</item>
         <item>"mobile,0,0,0,-1,true"</item>
         <item>"mobile_mms,2,0,2,60000,true"</item>
         <item>"mobile_supl,3,0,2,60000,true"</item>
         <item>"mobile_dun,4,0,3,60000,true"</item>
         <item>"mobile_hipri,5,0,3,60000,true"</item>
+	<item>"wimax,6,6,1,60000,true"</item>
         <item>"mobile_bluetooth,7,7,1,-1,true"</item>
         <item>"wifi_p2p,13,1,0,-1,true"</item>
     </string-array>
@@ -168,20 +150,28 @@
     <string-array translatable="false" name="radioAttributes">
         <item>"1,1"</item>
         <item>"0,1"</item>
-	    <item>"6,1"</item>
+	<item>"6,1"</item>
         <item>"7,1"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
-         USB interfaces. If the device doesn't want to support tething over USB this should
-         be empty. An example would be "usb.*" -->
+         USB interfaces.  If the device doesn't want to support tething over USB this should
+         be empty.  An example would be "usb.*" -->
     <string-array translatable="false" name="config_tether_usb_regexs">
         <item>"usb0"</item>
+        <item>"rndis0"</item>
+    </string-array>
+
+    <!-- List of regexpressions describing the interface (if any) that represent tetherable 
+         Bluetooth interfaces. If the device doesn't want to support tethering over bluetooth,
+         this should be empty. An example would be "bnep.*" -->
+    <string-array translatable="false" name="config_tether_bluetooth_regexs">
+         <item>"bnep\\d"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
-         Wifi interfaces. If the device doesn't want to support tethering over Wifi this
-         should be empty. An example would be "softap.*" -->
+         Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
+         should be empty.  An example would be "softap.*" -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
         <item>"wlan0"</item>
     </string-array>
@@ -196,6 +186,9 @@
         <item>6</item>
         <item>7</item>
     </integer-array>
+
+    <!-- The VoiceMail default value is displayed to my own number if it is true -->
+    <bool name="config_telephony_use_own_number_for_voicemail">true</bool>
 
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
@@ -214,6 +207,11 @@
     <!-- Component name of the service providing geocoder API support. -->
     <string name="config_geocodeProvider">com.google.android.location.GeocodeProvider</string>
 
+    <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
+    <bool name="config_intrusiveNotificationLed">true</bool>
+
+    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
+    <bool name="config_intrusiveBatteryLed">true</bool>
 
 <!-- Vibrator pattern for feedback about a long screen/key press -->
     <integer-array name="config_longPressVibePattern">
@@ -267,19 +265,13 @@
     
     <!-- Allow the menu hard key to be disabled in LockScreen on some devices -->
     <bool name="config_disableMenuKeyInLockScreen">true</bool>
-    
-    <!-- CM CHANGES START HERE -->
 
-    <!-- LUN file to be used by legacy USB manager.
-         The existence of this file will be used to determine in the
-         legacy USB manager should be started. 
-    <string name="config_legacyUmsLunFile">/sys/class/android_usb/f_mass_storage/lun0/file</string> -->
+    <!-- If this value is true, The mms content-disposition field is supported correctly.
+        If false, Content-disposition fragments are ignored -->
+    <bool name="config_mms_content_disposition_support">false</bool>
 
-    <!-- Indicate whether the SD card is accessible without removing the battery. -->
-    <bool name="config_batterySdCardAccessibility">true</bool>
-
-    <!-- Workaround for devices with broken keyboards -->	
-    <bool name="config_forceDisableHardwareKeyboard">true</bool>
+    <!-- If this value is true, we handle Samsung CDMA's message ID method -->
+    <bool name="config_smsSamsungCdmaAlternateMessageIDEncoding">true</bool>
 
     <!-- Set and Unsets WiMAX -->
     <bool name="config_wimaxEnabled">true</bool>
@@ -297,6 +289,12 @@
          strength even on EVDO -->
     <bool name="config_alwaysUseCdmaRssi">true</bool>
 
-    <bool name="config_smsSamsungCdmaAlternateMessageIDEncoding">true</bool>
+    <!-- LUN file to be used by legacy USB manager.
+         The existence of this file will be used to determine in the
+         legacy USB manager should be started.
+    <string name="config_legacyUmsLunFile">/sys/class/android_usb/f_mass_storage/lun0/file</string> -->
+
+    <!-- Workaround for devices with broken keyboards -->	
+    <bool name="config_forceDisableHardwareKeyboard">true</bool>
 
 </resources>
