@@ -34,7 +34,7 @@ PRODUCT_COPY_FILES += \
 
 # Vold
 PRODUCT_COPY_FILES += \
-	device/samsung/epic4gtouch/configs/vold.fstab:system/etc/vold.fstab \
+	device/samsung/epic4gtouch/configs/vold.fstab:system/etc/vold.fstab
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -63,19 +63,41 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-    com.android.future.usb.accessory \
-    TvOut \
-    TvOutHack \
-    camera.exynos4 \
-    SamsungServiceMode
+        com.android.future.usb.accessory \
+        TvOut \
+        TvOutHack \
+        Camera \
+        camera.exynos4 \
+        Torch \
+        GalaxyS2Settings \
+        SamsungServiceMode
 
-# Camera
+# HAL 
 PRODUCT_PACKAGES += \
-	Camera
+        lights.SPH-D710 \
+        libhwconverter \
+        libswconverter \
+        libs5pjpeg \
+        libfimg
 
-# Sensors
+# OMX 
 PRODUCT_PACKAGES += \
-	lights.exynos4
+        libstagefrighthw \
+        libcsc \
+        libsecbasecomponent \
+        libsecosal \
+        libSEC_OMX_Resourcemanager \
+        libSEC_OMX_Core \
+        libSEC_OMX_Vdec \
+        libOMX.SEC.AVC.Decoder \
+        libOMX.SEC.M4V.Decoder \
+        libOMX.SEC.WMV.Decoder \
+        libOMX.SEC.VP8.Decoder \
+        libSEC_OMX_Venc \
+        libOMX.SEC.AVC.Encoder \
+        libOMX.SEC.M4V.Encoder \
+        libSEC_OMX_Adec \
+        libOMX.SEC.MP3.Decoder 
 
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -93,7 +115,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.wimax.interface=uwbr0 \
 	ro.cdma.ppp.interface=ppp0 \
 	net.tcp.buffersize.wimax=4096,524288,1048576,4096,16384,110208 \
-	mobiledata.interfaces=ppp0,eth0
+	mobiledata.interfaces=ppp0,uwbr0
 
 PRODUCT_COPY_FILES += \
 	device/samsung/epic4gtouch/configs/ip-up:system/etc/ppp/ip-up \
@@ -164,5 +186,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 $(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Include exynos4 platform specific parts
-#$(call inherit-product, hardware/sec/exynos4/exynos4.mk)
-#$(call inherit-product, hardware/sec/exynos4/Android.mk)
+$(call inherit-product, hardware/samsung/exynos4/Android.mk)
